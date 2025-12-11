@@ -17,6 +17,7 @@ view: orders {
     timeframes: [raw, time, date, week, month, quarter, year]
     sql: ${TABLE}.delivered_at ;;
   }
+
   dimension: gender {
     type: string
     sql: ${TABLE}.gender ;;

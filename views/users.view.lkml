@@ -41,10 +41,6 @@ view: users {
     type: string
     sql: ${TABLE}.last_name ;;
   }
-  dimension: full_name {
-    type: string
-    sql: CONCAT(${first_name}," ", ${last_name});;
-  }
   dimension: latitude {
     type: number
     sql: ${TABLE}.latitude ;;
@@ -53,6 +49,7 @@ view: users {
     type: number
     sql: ${TABLE}.longitude ;;
   }
+
   dimension: postal_code {
     type: string
     sql: ${TABLE}.postal_code ;;
@@ -69,6 +66,7 @@ view: users {
     type: string
     sql: ${TABLE}.traffic_source ;;
   }
+
   measure: count {
     type: count
     drill_fields: [id, last_name, first_name, orders.count, order_items.count]
