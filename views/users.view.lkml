@@ -11,18 +11,26 @@ view: users {
     type: number
     sql: ${TABLE}.age ;;
   }
+  dimension: age_bucket {
+    type:  tier
+    tiers: [30,50,70,100]
+    sql: ${age} ;;
+    style: classic
+  }
   dimension: city {
+    group_label: "Geo"
     type: string
     sql: ${TABLE}.city ;;
   }
   dimension: country {
+    group_label: "Geo"
     type: string
     map_layer_name: countries
     sql: ${TABLE}.country ;;
   }
   dimension_group: created {
     type: time
-    timeframes: [raw, time, date, week, month, quarter, year]
+    timeframes: [raw, time, date, week, month,month_name, quarter, year]
     sql: ${TABLE}.created_at ;;
   }
   dimension: email {
@@ -41,6 +49,10 @@ view: users {
     type: string
     sql: ${TABLE}.last_name ;;
   }
+  dimension: full_name {
+    type: string
+    sql: CONCAT(${first_name},' ', ${last_name}) ;;
+  }
   dimension: latitude {
     type: number
     sql: ${TABLE}.latitude ;;
@@ -48,6 +60,12 @@ view: users {
   dimension: longitude {
     type: number
     sql: ${TABLE}.longitude ;;
+  }
+
+  dimension: location {
+    type:  location
+    sql_latitude: ${latitude} ;;
+    sql_longitude: ${longitude} ;;
   }
 
   dimension: postal_code {
@@ -65,6 +83,11 @@ view: users {
   dimension: traffic_source {
     type: string
     sql: ${TABLE}.traffic_source ;;
+  }
+
+  dimension: is_email {
+    type: yesno
+    sql: ${traffic_source} = "Email" ;;
   }
 
   measure: count {

@@ -4,6 +4,7 @@ view: order_items {
 
   dimension: id {
     primary_key: yes
+    hidden: yes
     type: number
     sql: ${TABLE}.id ;;
   }
@@ -60,6 +61,18 @@ view: order_items {
     drill_fields: [detail*]
   }
 
+measure: total_sales {
+  type: sum
+  sql: ${sale_price} ;;
+  value_format_name: eur_0
+}
+
+  measure: total_sales_email {
+    type: sum
+    sql: ${sale_price} ;;
+    filters: [users.is_email: "Yes"]
+    value_format_name: eur_0
+  }
 
 
   # ----- Sets of fields for drilling ------

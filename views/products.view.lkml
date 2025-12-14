@@ -14,6 +14,7 @@ view: products {
   dimension: category {
     type: string
     sql: ${TABLE}.category ;;
+    drill_fields: [brand]
   }
   dimension: cost {
     type: number
@@ -22,6 +23,7 @@ view: products {
   dimension: department {
     type: string
     sql: ${TABLE}.department ;;
+    drill_fields: [category]
   }
   dimension: distribution_center_id {
     type: number
@@ -48,13 +50,13 @@ view: products {
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
-	id,
-	name,
-	distribution_centers.name,
-	distribution_centers.id,
-	inventory_items.count,
-	order_items.count
-	]
+  id,
+  name,
+  distribution_centers.name,
+  distribution_centers.id,
+  inventory_items.count,
+  order_items.count
+  ]
   }
 
 }

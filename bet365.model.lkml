@@ -4,21 +4,21 @@ include: "/views/*.view.lkml"                # include all views in the views/ f
 # include: "/**/*.view.lkml"                 # include all views in this project
 # include: "my_dashboard.dashboard.lookml"   # include a LookML dashboard called my_dashboard
 
-# # Select the views that should be a part of this model,
-# # and define the joins that connect them together.
-#
-# explore: order_items {
-#   join: orders {
-#     relationship: many_to_one
-#     sql_on: ${orders.id} = ${order_items.order_id} ;;
-#   }
-#
-#   join: users {
-#     relationship: many_to_one
-#     sql_on: ${users.id} = ${orders.user_id} ;;
-#   }
-# }
+datagroup: ecommerce_data_updates {
+  label: "E-commerce Data Refresh"
+  description: "Refreshes based on the last order update time."
+  sql_trigger: SELECT MAX(updated_at) FROM orders ;;
+  max_cache_age: "1 hour"  ## Safety net: Invalidate cache after 1 hour max, even if no updates.
+}
+
+# Select the views that should be a part of this model,
+# and define the joins that connect them together.
+
+explore: derived_order_items {}
+
 explore: order_items {
+  persist_with: ecommerce_data_updates
+
   join: inventory_items {
     type: left_outer
     sql_on: ${order_items.inventory_item_id} = ${inventory_items.id} ;;
