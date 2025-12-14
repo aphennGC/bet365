@@ -10,7 +10,16 @@ view: products {
   dimension: brand {
     type: string
     sql: ${TABLE}.brand ;;
+    description: "The brand name of the product"
+
+    # # --- Example Link to Google Search ---
+    # link: {
+    #   label: "Search for '{{ value }}' on Google"
+    #   url: "https://www.google.com/search?q={{ value | url_encode }}"
+    #   icon_url: "https://www.google.com/s2/favicons?domain=www.google.com"
+    # }
   }
+
   dimension: category {
     type: string
     sql: ${TABLE}.category ;;

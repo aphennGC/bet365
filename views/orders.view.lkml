@@ -39,7 +39,18 @@ view: orders {
   dimension: status {
     type: string
     sql: ${TABLE}.status ;;
+    # html:
+    # {% if value == 'Complete' %}
+    # <span style="color: green;">{{ value }} <i class="fa fa-check-circle"></i></span>
+    # {% elsif value == 'Pending' %}
+    # <span style="color: orange;">{{ value }} <i class="fa fa-clock-o"></i></span>
+    # {% elsif value == 'Cancelled' %}
+    # <span style="color: red;">{{ value }} <i class="fa fa-times-circle"></i></span>
+    # {% else %}
+    # {{ value }}
+    # {% endif %} ;;
   }
+
   dimension: user_id {
     type: number
     # hidden: yes
